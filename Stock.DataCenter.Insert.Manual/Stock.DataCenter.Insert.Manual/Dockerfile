@@ -1,4 +1,4 @@
-#docker run -e Tlia/Sydney --name stockasx.data.collection -p 9901:9902 stockasx/datacollection --log-opt max-size=10m --log-opt max-file=3
+# docker run -d -e TZ=Australia/Sydney --name stockasx.data.collection -p 9901:9902 --log-opt max-size=10m --log-opt max-file=3 stockasx/datacollection
 # docker build -t stockasx/datacollection .
 
 # Use the official ASP.NET Core runtime image
