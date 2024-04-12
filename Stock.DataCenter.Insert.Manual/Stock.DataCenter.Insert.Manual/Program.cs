@@ -31,8 +31,8 @@ logger.LogInformation($"load stock start.... {DateTime.Now.ToString()}");
 
 while (true)
 {
-    bool modified = false;  
-    
+    bool modified = false;
+
     if (scheduleManager.CanRunTask("CompanyInformation"))
     {
         ShortHistories.InsertOrUpdateCompanyFromAsxApi(logger);
