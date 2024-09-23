@@ -1,4 +1,5 @@
-﻿using Stock.Asx.DataCenter.EFCore.Model;
+﻿using Stock.Asx.DataCenter.EFCore;
+using Stock.Asx.DataCenter.EFCore.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

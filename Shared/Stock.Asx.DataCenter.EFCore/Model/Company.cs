@@ -18,7 +18,7 @@ namespace Stock.Asx.DataCenter.EFCore.Model
         public string? SubCatergory { get; set; }
 
         public string? SectorName { get; set; }
-
+        public bool Analysis { get; set; }
         public long TotalShares { get; set; } = default;
         public double LastPrice { get; set; } = default;
 

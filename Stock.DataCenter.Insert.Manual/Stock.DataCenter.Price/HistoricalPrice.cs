@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using Newtonsoft.Json.Converters;
 using Stock.DataCenter.Others.Convertor;
+using Stock.Asx.DataCenter.EFCore;
 
 
 namespace Stock.DataCenter.Prices

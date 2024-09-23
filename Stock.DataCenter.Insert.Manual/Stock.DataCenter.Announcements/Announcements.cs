@@ -9,6 +9,7 @@ using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf;
 using Microsoft.EntityFrameworkCore;
+using Stock.Asx.DataCenter.EFCore;
 
 namespace Stock.DataCenter.Announcements
 {

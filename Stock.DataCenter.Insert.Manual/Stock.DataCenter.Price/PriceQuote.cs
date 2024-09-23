@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Stock.Asx.DataCenter.EFCore;
 using Stock.Asx.DataCenter.EFCore.Model;
 using System;
 using System.Collections.Generic;

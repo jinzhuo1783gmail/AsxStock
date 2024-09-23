@@ -170,3 +170,39 @@ CREATE TABLE [dbo].[IndustrySubCatInvestmentsFlowInOut]
 
 CREATE INDEX idx_IndustrySubCatInvestmentFlowInOut_Catergory_Sector ON [IndustrySubCatInvestmentsFlowInOut] ( [Catergory], [SubCatergory]);
 CREATE INDEX idx_IndustrySubCatInvestmentFlowInOut_Catergory ON [IndustrySubCatInvestmentsFlowInOut] ([Catergory] );
+
+
+CREATE TABLE [dbo].[SocialMediaYoutubeVideo]
+(
+	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1), 
+    [Catergory] VARCHAR(200) null,
+	[SubCatergory] VARCHAR(200) not null,
+	[SectorName] VARCHAR(200) not null,
+	[Symbol] VARCHAR(20) not null,
+	[VideoLink] VARCHAR(max) not null,
+	[VideoId] VARCHAR(100) Not NULL, 
+	[Subtitle] VARCHAR(max) not null,
+	[ReleaseDate] DATETIME not null,
+	[CreateDate] DATETIME not null,
+)
+
+CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory_Sector ON [SocialMediaYoutubeVideo] ( [Catergory], [SubCatergory]);
+CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory ON [SocialMediaYoutubeVideo] ([Catergory] );
+CREATE INDEX idx_SocialMediaYoutubeVideo_SectorName ON [SocialMediaYoutubeVideo] ([SectorName] );
+CREATE INDEX idx_SocialMediaYoutubeVideo_Symbol ON [SocialMediaYoutubeVideo] ([Symbol] );
+
+
+CREATE TABLE [dbo].[YoutubeVideoCollectionSettings]
+(
+	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1), 
+    [Catergory] VARCHAR(200) null,
+	[SubCatergory] VARCHAR(200) not null,
+	[SectorName] VARCHAR(200) not null,
+	[Symbol] VARCHAR(20) not null,
+	[SearchFilterKeywords] VARCHAR(max) not null,
+	[DateFrom] int not null,
+	[MaxNumberOfVideos] int not null,
+	[IsActive] bit Not NULL, 
+)
+
+Insert into [dbo].[YoutubeVideoCollectionSettings] ([Catergory], [SubCatergory], [SectorName], [Symbol], [SearchFilterKeywords], [DateFrom], [MaxNumberOfVideos], [IsActive]) values ('Energy', 'Uranium', '', '', 'Uranium|Sentiment', 365, 50, 1)

@@ -2,6 +2,7 @@
 using Stock.Asx.DataCenter.EFCore.Model;
 using System.Collections.Generic;
 
+namespace Stock.Asx.DataCenter.EFCore;
 public class CompanyContext : DbContext
 {
     public DbSet<ShortHistory> ShortHistories { get; set; }
@@ -21,5 +22,9 @@ public class CompanyContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=withouthammer.ddns.net,3627;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1;TrustServerCertificate=True");
+    }
+
+    public CompanyContext() : base()
+    {
     }
 }
