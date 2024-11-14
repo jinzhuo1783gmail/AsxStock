@@ -172,24 +172,28 @@ CREATE INDEX idx_IndustrySubCatInvestmentFlowInOut_Catergory_Sector ON [Industry
 CREATE INDEX idx_IndustrySubCatInvestmentFlowInOut_Catergory ON [IndustrySubCatInvestmentsFlowInOut] ([Catergory] );
 
 
-CREATE TABLE [dbo].[SocialMediaYoutubeVideo]
+
+CREATE TABLE [dbo].[SocialMediaYoutubeVideos]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1), 
     [Catergory] VARCHAR(200) null,
 	[SubCatergory] VARCHAR(200) not null,
 	[SectorName] VARCHAR(200) not null,
 	[Symbol] VARCHAR(20) not null,
-	[VideoLink] VARCHAR(max) not null,
+	[Title] VARCHAR(max) not null,
+	[Description] VARCHAR(max) not null,
 	[VideoId] VARCHAR(100) Not NULL, 
 	[Subtitle] VARCHAR(max) not null,
+	[Sentiment] VARCHAR(max) not null,
+	[IsActive] bit not null,
 	[ReleaseDate] DATETIME not null,
 	[CreateDate] DATETIME not null,
 )
 
-CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory_Sector ON [SocialMediaYoutubeVideo] ( [Catergory], [SubCatergory]);
-CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory ON [SocialMediaYoutubeVideo] ([Catergory] );
-CREATE INDEX idx_SocialMediaYoutubeVideo_SectorName ON [SocialMediaYoutubeVideo] ([SectorName] );
-CREATE INDEX idx_SocialMediaYoutubeVideo_Symbol ON [SocialMediaYoutubeVideo] ([Symbol] );
+CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory_Sector ON [SocialMediaYoutubeVideos] ( [Catergory], [SubCatergory]);
+CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory ON [SocialMediaYoutubeVideos] ([Catergory] );
+CREATE INDEX idx_SocialMediaYoutubeVideo_SectorName ON [SocialMediaYoutubeVideos] ([SectorName] );
+CREATE INDEX idx_SocialMediaYoutubeVideo_Symbol ON [SocialMediaYoutubeVideos] ([Symbol] );
 
 
 CREATE TABLE [dbo].[YoutubeVideoCollectionSettings]

@@ -19,6 +19,10 @@ public class CompanyContext : DbContext
 
     public DbSet<IndustrySubCatInvestmentFlowInOut> IndustrySubCatInvestmentsFlowInOut { get; set; }
 
+    public DbSet<SocialMediaYoutubeVideo> SocialMediaYoutubeVideos { get; set; }
+
+    public DbSet<YoutubeVideoCollectionSetting> YoutubeVideoCollectionSettings { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=withouthammer.ddns.net,3627;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1;TrustServerCertificate=True");

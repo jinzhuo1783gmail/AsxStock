@@ -19,6 +19,7 @@
     <ProjectReference Include="..\Stock.Asx.DataCenter.ShortHistories\Stock.Asx.DataCenter.ShortHistories.csproj" />
     <ProjectReference Include="..\Stock.DataCenter.Announcements\Stock.DataCenter.Announcements.csproj" />
     <ProjectReference Include="..\Stock.DataCenter.Price\Stock.DataCenter.Prices.csproj" />
+    <ProjectReference Include="..\Stock.DataCenter.SocialMedia\Stock.DataCenter.SocialMedia.csproj" />
   </ItemGroup>
 
 </Project>

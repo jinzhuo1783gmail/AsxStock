@@ -10,6 +10,7 @@ using Stock.Asx.DataCenter.ShortHistories;
 using Stock.DataCenter.Announcements;
 using Stock.DataCenter.Prices;
 using Stock.DataCenter.Insert.Manual.Schedule;
+using Stock.DataCenter.SocialMedia;
 
 
 
@@ -33,56 +34,63 @@ while (true)
 {
     bool modified = false;
 
-    if (scheduleManager.CanRunTask("CompanyInformation"))
+    //if (scheduleManager.CanRunTask("CompanyInformation"))
+    //{
+    //    ShortHistories.InsertOrUpdateCompanyFromAsxApi(logger);
+    //    scheduleManager.AddTaskHistory("CompanyInformation");
+    //    modified = true;
+    //}
+
+    //if (scheduleManager.CanRunTask("ShortList"))
+    //{
+    //    ShortHistories.DownloadAndInsertShort(logger);
+    //    scheduleManager.AddTaskHistory("ShortList");
+    //    modified = true;
+    //}
+
+
+    //if (scheduleManager.CanRunTask("CheckCompany"))
+    //{
+    //    ShortHistories.CheckAndAppendCompany(logger);
+    //    scheduleManager.AddTaskHistory("CheckCompany");
+    //    modified = true;
+    //}
+
+    //if (scheduleManager.CanRunTask("PatchCompany"))
+    //{
+    //    ShortHistories.CheckAndAmendExistingCompanyInformation(logger);
+    //    scheduleManager.AddTaskHistory("PatchCompany");
+    //    modified = true;
+    //}
+
+
+    //if (scheduleManager.CanRunTask("Annoucement"))
+    //{
+    //    Announcements.DownloadAndInsertAnnoucnements(logger);
+    //    scheduleManager.AddTaskHistory("Annoucement");
+    //    modified = true;
+    //}
+
+
+    //if (scheduleManager.CanRunTask("GetQuote"))
+    //{
+    //    PriceQuote.GetQuote(logger);
+    //    PriceQuote.CalculateInvestmentMovement(logger);
+    //    scheduleManager.AddTaskHistory("GetQuote");
+    //    modified = true;
+    //}
+
+    //if (scheduleManager.CanRunTask("HistoricalPrice"))
+    //{
+    //    HistoricalPrice.GetHistoricalPrices(logger);
+    //    scheduleManager.AddTaskHistory("HistoricalPrice");
+    //    modified = true;
+    //}
+
+    if (scheduleManager.CanRunTask("YoutubeVideoScan"))
     {
-        ShortHistories.InsertOrUpdateCompanyFromAsxApi(logger);
-        scheduleManager.AddTaskHistory("CompanyInformation");
-        modified = true;
-    }
-
-    if (scheduleManager.CanRunTask("ShortList"))
-    {
-        ShortHistories.DownloadAndInsertShort(logger);
-        scheduleManager.AddTaskHistory("ShortList");
-        modified = true;
-    }
-
-
-    if (scheduleManager.CanRunTask("CheckCompany"))
-    {
-        ShortHistories.CheckAndAppendCompany(logger);
-        scheduleManager.AddTaskHistory("CheckCompany");
-        modified = true;
-    }
-
-    if (scheduleManager.CanRunTask("PatchCompany"))
-    {
-        ShortHistories.CheckAndAmendExistingCompanyInformation(logger);
-        scheduleManager.AddTaskHistory("PatchCompany");
-        modified = true;
-    }
-
-
-    if (scheduleManager.CanRunTask("Annoucement"))
-    {
-        Announcements.DownloadAndInsertAnnoucnements(logger);
-        scheduleManager.AddTaskHistory("Annoucement");
-        modified = true;
-    }
-
-
-    if (scheduleManager.CanRunTask("GetQuote"))
-    {
-        PriceQuote.GetQuote(logger);
-        PriceQuote.CalculateInvestmentMovement(logger);
-        scheduleManager.AddTaskHistory("GetQuote");
-        modified = true;
-    }
-
-    if (scheduleManager.CanRunTask("HistoricalPrice"))
-    {
-        HistoricalPrice.GetHistoricalPrices(logger);
-        scheduleManager.AddTaskHistory("HistoricalPrice");
+        YoutubeVideo.GetAllVideoList(logger);
+        //scheduleManager.AddTaskHistory("YoutubeVideoScan");
         modified = true;
     }
 
