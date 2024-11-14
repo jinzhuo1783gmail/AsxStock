@@ -92,7 +92,7 @@ namespace Stock.DataCenter.SocialMedia
                             //string output = GetVideoSubtitle(SUBTITLE_COMMAND, ARGUMENTS.Replace("{{videoId}}", Convert.ToString(video.id.videoId)));
                             // output = output.Trim();
 
-                            youtube_video.Subtitle = output;
+                            // youtube_video.Subtitle = output;
 
                             //if (!output.StartsWith("[") && output.EndsWith("]") && !output.StartsWith("{") && output.EndsWith("}"))
                             //{   
