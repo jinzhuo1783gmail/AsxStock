@@ -43,11 +43,11 @@ namespace Stock.DataCenter.Prices
                 {
                     logger.LogInformation($"Read historical price for company {symbol} ");
 
-                    if (context.Prices.Any(p => p.Symbol == symbol))
-                    {
-                        logger.LogInformation("skip ........ ");
-                        continue;
-                    }
+                    //if (context.Prices.Any(p => p.Symbol == symbol))
+                    //{
+                    //    logger.LogInformation("skip ........ ");
+                    //    continue;
+                    //}
                         
 
                     logger.LogInformation($"Get Historical Price for company {symbol}");

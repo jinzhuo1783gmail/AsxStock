@@ -25,15 +25,15 @@ namespace Stock.DataCenter.Insert.Manual.Schedule
 
         }
 
-        public bool CanRunTask (string taskName)
+        public bool CanRunTask (string taskName, bool skipWeekend = true)
         {
             DateTime today = DateTime.Today;
             DayOfWeek dayOfWeek = today.DayOfWeek;
-        
+
             // Check if today is a weekend
             bool isWeekend = (dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday);
 
-            if (isWeekend)
+            if (isWeekend && skipWeekend)
                 return false;
 
             using (var context = new CompanyContext())

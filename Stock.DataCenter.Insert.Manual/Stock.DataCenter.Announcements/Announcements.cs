@@ -40,6 +40,7 @@ namespace Stock.DataCenter.Announcements
                         //        announcement.FileContent = StringCompressor.CompressString(textAnn);
                         //    }
                         //}
+
                         if (announcementsNew.Any()) 
                         { 
                             context.Announcements.AddRange(announcementsNew);

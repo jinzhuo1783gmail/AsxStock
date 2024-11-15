@@ -141,6 +141,7 @@ Insert into [dbo].[ScheduleSettings] ([TaskName], [ScheduleTime], [IsActive], [U
 Insert into [dbo].[ScheduleSettings] ([TaskName], [ScheduleTime], [IsActive], [UploadDate]) values ('GetQuote', '16:30:00', 1, '2024-05-05T08:00:00')
 Insert into [dbo].[ScheduleSettings] ([TaskName], [ScheduleTime], [IsActive], [UploadDate]) values ('GetQuote', '17:15:00', 1, '2024-05-05T08:00:00')
 
+Insert into [dbo].[ScheduleSettings] ([TaskName], [ScheduleTime], [IsActive], [UploadDate]) values ('YoutubeVideoScan', '07:00:00.0000000', 1, '2024-05-05T08:00:00')
 
 select * from [dbo].[ScheduleSettings]
 
@@ -186,8 +187,8 @@ CREATE TABLE [dbo].[SocialMediaYoutubeVideos]
 	[Subtitle] VARCHAR(max) not null,
 	[Sentiment] VARCHAR(max) not null,
 	[IsActive] bit not null,
-	[ReleaseDate] DATETIME not null,
-	[CreateDate] DATETIME not null,
+	[ReleaseDate] DATETIME2 not null,
+	[CreateDate] DATETIME2 not null,
 )
 
 CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory_Sector ON [SocialMediaYoutubeVideos] ( [Catergory], [SubCatergory]);

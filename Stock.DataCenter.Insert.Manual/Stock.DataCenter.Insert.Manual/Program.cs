@@ -28,25 +28,29 @@ ILogger logger = loggerFactory.CreateLogger<Program>();
 
 var scheduleManager = new ScheduleManager(logger);
 
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
+logger.LogInformation($"Environment.... {environment}");
+
 logger.LogInformation($"load stock start.... {DateTime.Now.ToString()}");
 
 while (true)
 {
     bool modified = false;
 
-    //if (scheduleManager.CanRunTask("CompanyInformation"))
-    //{
-    //    ShortHistories.InsertOrUpdateCompanyFromAsxApi(logger);
-    //    scheduleManager.AddTaskHistory("CompanyInformation");
-    //    modified = true;
-    //}
+    if (scheduleManager.CanRunTask("CompanyInformation"))
+    {
+        ShortHistories.InsertOrUpdateCompanyFromAsxApi(logger);
+        scheduleManager.AddTaskHistory("CompanyInformation");
+        modified = true;
+    }
 
-    //if (scheduleManager.CanRunTask("ShortList"))
-    //{
-    //    ShortHistories.DownloadAndInsertShort(logger);
-    //    scheduleManager.AddTaskHistory("ShortList");
-    //    modified = true;
-    //}
+    if (scheduleManager.CanRunTask("ShortList"))
+    {
+        ShortHistories.DownloadAndInsertShort(logger);
+        scheduleManager.AddTaskHistory("ShortList");
+        modified = true;
+    }
 
 
     //if (scheduleManager.CanRunTask("CheckCompany"))
@@ -87,10 +91,10 @@ while (true)
     //    modified = true;
     //}
 
-    if (scheduleManager.CanRunTask("YoutubeVideoScan"))
+    if (scheduleManager.CanRunTask("YoutubeVideoScan", false))
     {
         YoutubeVideo.GetAllVideoList(logger);
-        //scheduleManager.AddTaskHistory("YoutubeVideoScan");
+        scheduleManager.AddTaskHistory("YoutubeVideoScan");
         modified = true;
     }
 

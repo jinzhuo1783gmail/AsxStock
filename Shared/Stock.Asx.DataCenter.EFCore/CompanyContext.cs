@@ -25,7 +25,18 @@ public class CompanyContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=withouthammer.ddns.net,3627;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1;TrustServerCertificate=True");
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
+        if (environment == "Development")
+        {
+            optionsBuilder.UseSqlServer("Server=withouthammer.ddns.net,3627;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1;TrustServerCertificate=True");
+        }
+        else
+        {
+            optionsBuilder.UseSqlServer("Server=withouthammer.ddns.net,3111;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1!;TrustServerCertificate=True");
+        }
+
+        
     }
 
     public CompanyContext() : base()
