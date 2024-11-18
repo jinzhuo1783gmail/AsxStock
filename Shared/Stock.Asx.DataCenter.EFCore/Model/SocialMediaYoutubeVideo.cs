@@ -20,11 +20,13 @@ namespace Stock.Asx.DataCenter.EFCore.Model
 
         public string Title { get; set; } // Not nullable
 
-        public string Description { get; set; } // Not nullable
+        public string Description { get; set; } = string.Empty;
 
         public string VideoId { get; set; } // Not nullable
 
-        public string Subtitle { get; set; } // Not nullable
+        public string Subtitle { get; set; } = string.Empty;
+
+        public string Enrich { get; set; } = string.Empty; 
 
         public string Sentiment { get; set; } = string.Empty;
 

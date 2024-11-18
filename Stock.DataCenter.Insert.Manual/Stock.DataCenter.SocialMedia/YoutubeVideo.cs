@@ -69,6 +69,7 @@ namespace Stock.DataCenter.SocialMedia
                                     Description = video.Snippet.Description,
                                     VideoId = video.Id.VideoId,
                                     Subtitle = string.Empty,
+                                    Enrich = string.Empty,
                                     Sentiment = string.Empty,
                                     IsActive = true,
                                     ReleaseDate = video.Snippet.PublishedAt,
