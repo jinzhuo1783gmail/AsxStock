@@ -181,10 +181,10 @@ CREATE TABLE [dbo].[SocialMediaYoutubeVideos]
 	[SubCatergory] VARCHAR(200) not null,
 	[SectorName] VARCHAR(200) not null,
 	[Symbol] VARCHAR(20) not null,
-	[Title] VARCHAR(max) not null,
-	[Description] VARCHAR(max) not null,
+	[Title] NVARCHAR(max) not null,
+	[Description] NVARCHAR(max) not null,
 	[VideoId] VARCHAR(100) Not NULL, 
-	[Subtitle] VARCHAR(max) not null,
+	[Subtitle] NVARCHAR(max) not null,
 	[Sentiment] VARCHAR(max) not null,
 	[Enrich] NVARCHAR(max) not null,
 	[IsActive] bit not null,
@@ -197,14 +197,6 @@ CREATE INDEX idx_SocialMediaYoutubeVideo_Symbol_Catergory_SubCatergory_Sector_Vi
 CREATE INDEX idx_SocialMediaYoutubeVideo_Catergory ON [SocialMediaYoutubeVideos] ([Catergory] );
 CREATE INDEX idx_SocialMediaYoutubeVideo_SectorName ON [SocialMediaYoutubeVideos] ([SectorName] );
 CREATE INDEX idx_SocialMediaYoutubeVideo_Symbol ON [SocialMediaYoutubeVideos] ([Symbol] );
-
-
---  ALTER TABLE [dbo].[SocialMediaYoutubeVideos]
---ADD [Enrich] NVARCHAR(MAX) NOT NULL DEFAULT '';
-
---CREATE INDEX idx_SocialMediaYoutubeVideo_Symbol_Catergory_SubCatergory_Sector_VideoId ON [SocialMediaYoutubeVideos] ( [Symbol],  [Catergory], [SubCatergory], [SectorName], [VideoId]);
-
-
 
 CREATE TABLE [dbo].[YoutubeVideoCollectionSettings]
 (
