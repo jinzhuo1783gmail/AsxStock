@@ -53,19 +53,19 @@ while (true)
     }
 
 
-    //if (scheduleManager.CanRunTask("CheckCompany"))
-    //{
-    //    ShortHistories.CheckAndAppendCompany(logger);
-    //    scheduleManager.AddTaskHistory("CheckCompany");
-    //    modified = true;
-    //}
+    if (scheduleManager.CanRunTask("CheckCompany"))
+    {
+        ShortHistories.CheckAndAppendCompany(logger);
+        scheduleManager.AddTaskHistory("CheckCompany");
+        modified = true;
+    }
 
-    //if (scheduleManager.CanRunTask("PatchCompany"))
-    //{
-    //    ShortHistories.CheckAndAmendExistingCompanyInformation(logger);
-    //    scheduleManager.AddTaskHistory("PatchCompany");
-    //    modified = true;
-    //}
+    if (scheduleManager.CanRunTask("PatchCompany"))
+    {
+        ShortHistories.CheckAndAmendExistingCompanyInformation(logger);
+        scheduleManager.AddTaskHistory("PatchCompany");
+        modified = true;
+    }
 
 
     //if (scheduleManager.CanRunTask("Annoucement"))
@@ -76,13 +76,13 @@ while (true)
     //}
 
 
-    //if (scheduleManager.CanRunTask("GetQuote"))
-    //{
-    //    PriceQuote.GetQuote(logger);
-    //    PriceQuote.CalculateInvestmentMovement(logger);
-    //    scheduleManager.AddTaskHistory("GetQuote");
-    //    modified = true;
-    //}
+    if (scheduleManager.CanRunTask("GetQuote"))
+    {
+        PriceQuote.GetQuote(logger);
+        PriceQuote.CalculateInvestmentMovement(logger);
+        scheduleManager.AddTaskHistory("GetQuote");
+        modified = true;
+    }
 
     //if (scheduleManager.CanRunTask("HistoricalPrice"))
     //{

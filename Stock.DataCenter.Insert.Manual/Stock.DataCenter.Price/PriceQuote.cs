@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Flurl;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Stock.Asx.DataCenter.EFCore;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using YahooFinanceApi;
 using static System.Net.WebRequestMethods;
 
 namespace Stock.DataCenter.Prices
@@ -29,7 +31,7 @@ namespace Stock.DataCenter.Prices
                     {
                         logger.LogInformation($"Processing Quote for company {symbol}");
 
-                        var price = GetQuoteFromAsxApi(symbol, clientAsx, context, logger).GetAwaiter().GetResult();
+                        var price = GetQuoteFromYahooApi(symbol, context, logger).GetAwaiter().GetResult();
 
                         if (price != null && price.Id == 0)
                         {
@@ -58,6 +60,62 @@ namespace Stock.DataCenter.Prices
                 return false;
             }
         }
+
+        public static async Task<Price> GetQuoteFromYahooApi(string symbol, CompanyContext context, ILogger logger)
+        {
+            var existPrice = context.Prices.OrderBy(p => p.Date).LastOrDefault(a => a.Symbol == symbol);
+
+            bool update = true;
+            if (existPrice == null || existPrice.Date.Date < DateTime.Now.Date) 
+            {
+                update = false;
+            }
+
+            try
+            {
+                var securities = await Yahoo.Symbols($"{symbol}.AX").Fields(Field.Symbol, Field.RegularMarketOpen, Field.RegularMarketDayHigh,Field.RegularMarketVolume, Field.RegularMarketDayLow, Field.RegularMarketPrice, Field.FiftyTwoWeekHigh).QueryAsync();
+                var sec = securities[$"{symbol}.AX"];
+
+                if (update)
+                {
+                    existPrice.Close = sec[Field.RegularMarketPrice];
+                    existPrice.CloseAdj = sec[Field.RegularMarketPrice];
+                    existPrice.Open = sec[Field.RegularMarketOpen];
+                    existPrice.High = sec[Field.RegularMarketDayHigh];
+                    existPrice.Low = sec[Field.RegularMarketDayLow];
+                    existPrice.Volumn = sec[Field.RegularMarketVolume];
+                    existPrice.UploadDate = DateTime.Now;
+
+                    return existPrice;
+                }
+                else
+                {
+                    return new Price()
+                    {
+                        Date = DateTime.Now.Date,
+                        Symbol = symbol,
+                        Close = sec[Field.RegularMarketPrice],
+                        CloseAdj = sec[Field.RegularMarketPrice],
+                        Open = sec[Field.RegularMarketOpen],
+                        High = sec[Field.RegularMarketDayHigh],
+                        Low = sec[Field.RegularMarketDayLow],
+                        Volumn = sec[Field.RegularMarketVolume],
+                        UploadDate = DateTime.Now
+
+                    };
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"exception happend during price retrieveing for company {symbol} Reason {ex.Message} {ex.InnerException}");
+                //return new List<Announcement>();
+            }
+
+            return null;
+
+        }
+
 
         public static async Task<Price> GetQuoteFromAsxApi(string symbol, HttpClient client, CompanyContext context, ILogger logger)
         {
