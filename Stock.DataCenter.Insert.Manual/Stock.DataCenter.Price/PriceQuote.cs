@@ -1,11 +1,13 @@
 ﻿using Flurl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Stock.Asx.DataCenter.EFCore;
 using Stock.Asx.DataCenter.EFCore.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -27,25 +29,32 @@ namespace Stock.DataCenter.Prices
                     var clientAsx = new HttpClient();
                     clientAsx.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                    var allAsxSymbols = allCompaniesSymbols.Select(s => s + ".AX");
+
+                    var secs = GetAllQuoteFromYahooApi(allAsxSymbols.ToArray(), logger).GetAwaiter().GetResult();
+
                     foreach (var symbol in allCompaniesSymbols)
                     {
                         logger.LogInformation($"Processing Quote for company {symbol}");
 
-                        var price = GetQuoteFromYahooApi(symbol, context, logger).GetAwaiter().GetResult();
-
-                        if (price != null && price.Id == 0)
+                        if (secs.Keys.Contains(symbol))
                         {
-                            context.Add(price);
-                            logger.LogInformation($"Successfully add quote for company {symbol}");
+                            var sec = secs[symbol];
+
+                            var price = CreateQuote(symbol, sec, context, logger).GetAwaiter().GetResult();
+
+                            if (price != null && price.Id == 0)
+                            {
+                                context.Add(price);
+                                logger.LogInformation($"Successfully add quote for company {symbol}");
                             
+                            }
+                            else if (price != null && price.Id > 0)
+                            {
+                                context.Prices.Update(price);
+                                logger.LogInformation($"Successfully update quote for company {symbol}");
+                            }
                         }
-                        else if (price != null && price.Id > 0)
-                        {
-                            context.Prices.Update(price);
-                            logger.LogInformation($"Successfully update quote for company {symbol}");
-                       }
-
-                        
                     }
 
                     context.SaveChanges();
@@ -61,7 +70,30 @@ namespace Stock.DataCenter.Prices
             }
         }
 
-        public static async Task<Price> GetQuoteFromYahooApi(string symbol, CompanyContext context, ILogger logger)
+        public static async Task<Dictionary<string, Security>> GetAllQuoteFromYahooApi(string[] symbols, ILogger logger)
+        {
+            var batches = symbols
+                        .Select((value, index) => new { value, index })
+                        .GroupBy(x => x.index / 50)
+                        .Select(g => g.Select(x => x.value));
+
+            Dictionary<string, Security> secs = new Dictionary<string, Security>();
+
+            foreach (var batch in batches)
+            {
+                var securities = await Yahoo.Symbols(batch.ToArray()).Fields(Field.Symbol, Field.RegularMarketOpen, Field.RegularMarketDayHigh,Field.RegularMarketVolume, Field.RegularMarketDayLow, Field.RegularMarketPrice, Field.FiftyTwoWeekHigh).QueryAsync();
+                
+                foreach (var kvp in securities)
+                {
+                    secs[kvp.Key.Replace(".AX", "")] = kvp.Value; // Add or overwrite existing keys
+                }
+            }
+
+            return secs;
+        }
+
+
+        public static async Task<Price> CreateQuote(string symbol, Security sec, CompanyContext context, ILogger logger)
         {
             var existPrice = context.Prices.OrderBy(p => p.Date).LastOrDefault(a => a.Symbol == symbol);
 
@@ -73,9 +105,6 @@ namespace Stock.DataCenter.Prices
 
             try
             {
-                var securities = await Yahoo.Symbols($"{symbol}.AX").Fields(Field.Symbol, Field.RegularMarketOpen, Field.RegularMarketDayHigh,Field.RegularMarketVolume, Field.RegularMarketDayLow, Field.RegularMarketPrice, Field.FiftyTwoWeekHigh).QueryAsync();
-                var sec = securities[$"{symbol}.AX"];
-
                 if (update)
                 {
                     existPrice.Close = sec[Field.RegularMarketPrice];
