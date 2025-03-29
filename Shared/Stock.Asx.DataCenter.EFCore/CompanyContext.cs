@@ -29,11 +29,11 @@ public class CompanyContext : DbContext
 
         if (environment == "Development")
         {
-            optionsBuilder.UseSqlServer("Server=withouthammer.ddns.net,3627;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=192.168.1.108,1433;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1;TrustServerCertificate=True");
         }
         else
         {
-            optionsBuilder.UseSqlServer("Server=withouthammer.ddns.net,3111;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1!;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=192.168.1.111,1433;Database=Stock.Asx.DataCenter;User Id=sa;Password=returnNull1!;TrustServerCertificate=True");
         }
 
         
